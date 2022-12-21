@@ -4,23 +4,25 @@ kind: Deployment
 metadata:
   name: apprise-private
   labels:
-    app: apprise
+    app: apprise-private
+    app.kubernetes.io/name: apprise-private
   namespace: zml-media
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: apprise
+      app: apprise-private
   template:
     metadata:
       labels:
-        app: apprise
+        app: apprise-private
     spec:
       containers:
       - name: apprise-private
         image: linuxserver/apprise-api:latest
         ports:
         - containerPort: 8000
+          name: apprise-private
         envFrom:
         - configMapRef:
             name: linuxserver-defaults
@@ -32,28 +34,47 @@ spec:
               key: private
 
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apprise-private
+  labels:
+    app: apprise-private
+  namespace: zml-media
+spec:
+  type: NodePort
+  selector:
+    app: apprise-private
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      name: apprise-private
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: apprise-home
   labels:
-    app: apprise
+    app: apprise-home
   namespace: zml-media
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: apprise
+      app: apprise-home
   template:
     metadata:
       labels:
-        app: apprise
+        app: apprise-home
     spec:
       containers:
       - name: apprise-home
         image: linuxserver/apprise-api:latest
         ports:
         - containerPort: 8000
+          name: apprise-home
         envFrom:
         - configMapRef:
             name: linuxserver-defaults
@@ -63,3 +84,21 @@ spec:
             secretKeyRef:
               name: apprise-config
               key: home
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apprise-home
+  labels:
+    app: apprise-home
+  namespace: zml-media
+spec:
+  type: NodePort
+  selector:
+    app: apprise-home
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      name: apprise-home
