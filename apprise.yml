@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apprise-private
+  labels:
+    app: apprise
+  namespace: zml-media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apprise
+  template:
+    metadata:
+      labels:
+        app: apprise
+    spec:
+      containers:
+      - name: apprise-private
+        image: linuxserver/apprise-api:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: linuxserver-defaults
+        env:
+        - name: APPRISE_STATELESS_URLS
+          valueFrom:
+            secretKeyRef:
+              name: apprise-config
+              key: private
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apprise-home
+  labels:
+    app: apprise
+  namespace: zml-media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apprise
+  template:
+    metadata:
+      labels:
+        app: apprise
+    spec:
+      containers:
+      - name: apprise-home
+        image: linuxserver/apprise-api:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: linuxserver-defaults
+        env:
+        - name: APPRISE_STATELESS_URLS
+          valueFrom:
+            secretKeyRef:
+              name: apprise-config
+              key: home
