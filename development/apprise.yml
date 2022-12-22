@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: apprise-private
-        image: linuxserver/apprise-api:latest
+        image: linuxserver/apprise-api:0.8.2
         ports:
         - containerPort: 8000
           name: apprise-private
@@ -71,7 +71,7 @@ spec:
     spec:
       containers:
       - name: apprise-home
-        image: linuxserver/apprise-api:latest
+        image: linuxserver/apprise-api:0.8.2
         ports:
         - containerPort: 8000
           name: apprise-home
