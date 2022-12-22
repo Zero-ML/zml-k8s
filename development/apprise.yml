@@ -6,7 +6,7 @@ metadata:
   labels:
     app: apprise-private
     app.kubernetes.io/name: apprise-private
-  namespace: zml-media
+  namespace: development
 spec:
   replicas: 1
   selector:
@@ -40,7 +40,7 @@ metadata:
   name: apprise-private
   labels:
     app: apprise-private
-  namespace: zml-media
+  namespace: development
 spec:
   type: NodePort
   selector:
@@ -58,7 +58,7 @@ metadata:
   name: apprise-home
   labels:
     app: apprise-home
-  namespace: zml-media
+  namespace: development
 spec:
   replicas: 1
   selector:
@@ -92,7 +92,7 @@ metadata:
   name: apprise-home
   labels:
     app: apprise-home
-  namespace: zml-media
+  namespace: development
 spec:
   type: NodePort
   selector:

@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: zml-media
+  name: development
 
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: linuxserver-defaults
-  namespace: zml-media
+  namespace: development
 data:
   TZ: Asia/Jerusalem
   PUID: "1000"
