@@ -4,25 +4,26 @@ kind: Deployment
 metadata:
   name: apprise-private
   labels:
-    app: apprise-private
-    app.kubernetes.io/name: apprise-private
+    app: apprise
+    project: private
   namespace: development
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: apprise-private
+      app: apprise
+      project: private
   template:
     metadata:
       labels:
-        app: apprise-private
+        app: apprise
+        project: private
     spec:
       containers:
       - name: apprise-private
         image: linuxserver/apprise-api:0.8.2
         ports:
         - containerPort: 8000
-          name: apprise-private
         envFrom:
         - configMapRef:
             name: linuxserver-defaults
@@ -39,17 +40,18 @@ kind: Service
 metadata:
   name: apprise-private
   labels:
-    app: apprise-private
+    app: apprise
+    project: private
   namespace: development
 spec:
   type: NodePort
   selector:
-    app: apprise-private
+    app: apprise
+    project: private
   ports:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-      name: apprise-private
 
 ---
 apiVersion: apps/v1
@@ -57,24 +59,26 @@ kind: Deployment
 metadata:
   name: apprise-home
   labels:
-    app: apprise-home
+    app: apprise
+    project: home
   namespace: development
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: apprise-home
+      app: apprise
+      project: home
   template:
     metadata:
       labels:
-        app: apprise-home
+        app: apprise
+        project: home
     spec:
       containers:
       - name: apprise-home
         image: linuxserver/apprise-api:0.8.2
         ports:
         - containerPort: 8000
-          name: apprise-home
         envFrom:
         - configMapRef:
             name: linuxserver-defaults
@@ -91,14 +95,15 @@ kind: Service
 metadata:
   name: apprise-home
   labels:
-    app: apprise-home
+    app: apprise
+    project: home
   namespace: development
 spec:
   type: NodePort
   selector:
-    app: apprise-home
+    app: apprise
+    project: home
   ports:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-      name: apprise-home
