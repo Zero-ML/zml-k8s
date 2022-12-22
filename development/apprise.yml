@@ -44,7 +44,6 @@ metadata:
     project: private
   namespace: development
 spec:
-  type: NodePort
   selector:
     app: apprise
     project: private
@@ -99,7 +98,6 @@ metadata:
     project: home
   namespace: development
 spec:
-  type: NodePort
   selector:
     app: apprise
     project: home
