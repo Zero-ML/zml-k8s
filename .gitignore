@@ -1,2 +1,7 @@
+# Certificates
 **certs/
-**secrets.yml
+**/*.pem
+**/*.key
+
+# Secrets
+**/*secrets.yml
