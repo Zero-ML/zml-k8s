@@ -20,19 +20,19 @@ spec:
         project: private
     spec:
       containers:
-      - name: apprise-private
-        image: linuxserver/apprise-api:0.8.2
-        ports:
-        - containerPort: 8000
-        envFrom:
-        - configMapRef:
-            name: linuxserver-defaults
-        env:
-        - name: APPRISE_STATELESS_URLS
-          valueFrom:
-            secretKeyRef:
-              name: apprise-config
-              key: private
+        - name: apprise-private
+          image: linuxserver/apprise-api:0.8.2
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: linuxserver-defaults
+          env:
+            - name: APPRISE_STATELESS_URLS
+              valueFrom:
+                secretKeyRef:
+                  name: apprise-config
+                  key: private
 
 ---
 apiVersion: v1
@@ -74,19 +74,19 @@ spec:
         project: home
     spec:
       containers:
-      - name: apprise-home
-        image: linuxserver/apprise-api:0.8.2
-        ports:
-        - containerPort: 8000
-        envFrom:
-        - configMapRef:
-            name: linuxserver-defaults
-        env:
-        - name: APPRISE_STATELESS_URLS
-          valueFrom:
-            secretKeyRef:
-              name: apprise-config
-              key: home
+        - name: apprise-home
+          image: linuxserver/apprise-api:0.8.2
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: linuxserver-defaults
+          env:
+            - name: APPRISE_STATELESS_URLS
+              valueFrom:
+                secretKeyRef:
+                  name: apprise-config
+                  key: home
 
 ---
 apiVersion: v1

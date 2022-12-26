@@ -8,28 +8,28 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
-  - hosts:
-    - private.zero-ml.com
-    - home.zero-ml.com
-    secretName: zml-certs
+    - hosts:
+        - private.zero-ml.com
+        - home.zero-ml.com
+      secretName: zml-certs
   rules:
-  - host: private.zero-ml.com
-    http:
-      paths:
-      - path: /notify/
-        pathType: Exact
-        backend:
-          service:
-            name: apprise-private
-            port:
-              number: 8000
-  - host: home.zero-ml.com
-    http:
-      paths:
-      - path: /notify/
-        pathType: Exact
-        backend:
-          service:
-            name: apprise-home
-            port:
-              number: 8000
+    - host: private.zero-ml.com
+      http:
+        paths:
+          - path: /notify/
+            pathType: Exact
+            backend:
+              service:
+                name: apprise-private
+                port:
+                  number: 8000
+    - host: home.zero-ml.com
+      http:
+        paths:
+          - path: /notify/
+            pathType: Exact
+            backend:
+              service:
+                name: apprise-home
+                port:
+                  number: 8000
