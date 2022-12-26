@@ -3,15 +3,21 @@ kind: Ingress
 metadata:
   name: dev-ingress
   namespace: development
-  # annotations:
-  #   nginx.ingress.kubernetes.io/rewrite-target: /$1
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/issuer: "letsencrypt-issuer"
+    # nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
-  ingressClassName: nginx
   tls:
     - hosts:
         - private.zero-ml.com
+      secretName: tls-private
+    - hosts:
         - home.zero-ml.com
-      secretName: zml-certs
+      secretName: tls-home
+    - hosts:
+        - k8s.zero-ml.com
+      secretName: tls-k8s
   rules:
     - host: private.zero-ml.com
       http:
@@ -33,3 +39,13 @@ spec:
                 name: apprise-home
                 port:
                   number: 8000
+    - host: k8s.zero-ml.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kuard
+                port:
+                  number: 80
